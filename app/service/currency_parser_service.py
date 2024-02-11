@@ -2,8 +2,6 @@ import requests
 from bs4 import BeautifulSoup as bs
 from dateutil.parser import parse
 
-from DBAdapter import DBAdapter
-
 
 def getCurrency(currency1):
     if currency1 in ["USD", "CNY"]:

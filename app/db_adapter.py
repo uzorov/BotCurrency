@@ -10,7 +10,7 @@ class DBAdapter:
         self.createDb()
 
     def createDb(self):
-        connection = sqlite3.connect('currency.db')
+        connection = sqlite3.connect('../currency.db')
         cursor = connection.cursor()
         cursor.execute('''
         CREATE TABLE IF NOT EXISTS USD (
@@ -54,7 +54,7 @@ class DBAdapter:
         connection.close()
 
     def getCurrencyDataFromDb(self, currency):
-        connection = sqlite3.connect('currency.db')
+        connection = sqlite3.connect('../currency.db')
         cursor = connection.cursor()
         cursor.execute(f'SELECT * FROM {currency}')
         lis = cursor.fetchall()
@@ -62,7 +62,7 @@ class DBAdapter:
         return lis
 
     def getCurrencyValueFromDb(self, currency):
-        connection = sqlite3.connect('currency.db')
+        connection = sqlite3.connect('../currency.db')
         cursor = connection.cursor()
         cursor.execute(f'SELECT * FROM {currency}')
         lis = cursor.fetchall()
@@ -70,7 +70,7 @@ class DBAdapter:
         return lis[-1][3]
 
     def storeCurrency(self, currency, date, value):
-        connection = sqlite3.connect('currency.db')
+        connection = sqlite3.connect('../currency.db')
         cursor = connection.cursor()
         time = datetime.datetime.now().strftime("%H:%M:%S")
         cursor.execute(f'INSERT INTO {currency} (dateUpdate, timeUpdate , valToRub) VALUES (?, ?, ?)',
@@ -79,7 +79,7 @@ class DBAdapter:
         connection.close()
 
     def clearDb(self):
-        connection = sqlite3.connect('currency.db')
+        connection = sqlite3.connect('../currency.db')
         cursor = connection.cursor()
         cursor.execute('DELETE FROM USD')
         cursor.execute('DELETE FROM CNY')
@@ -90,7 +90,7 @@ class DBAdapter:
 
     def updateValue(self, title, value):
         # print("#", value, title)
-        connection = sqlite3.connect('currency.db')
+        connection = sqlite3.connect('../currency.db')
         cursor = connection.cursor()
         if not self.isExistForToday(title):
             self.storeCurrency(title, datetime.date.today(), value)
@@ -118,6 +118,8 @@ class DBAdapter:
         self.storeCurrency("USD", "08-02-2024", 91.15)
         self.storeCurrency("USD", "09-02-2024", 91.26)
         self.storeCurrency("USD", "10-02-2024", 91.29)
+
+        print(self.getCurrencyDataFromDb("USD"))
 
 
         self.storeCurrency("CNY", "01-02-2024", 12.46)
@@ -155,7 +157,7 @@ class DBAdapter:
         self.storeCurrency("STL", "10-02-2024", 561)
 
     def getMetalDataFomDb(self, metal):
-        connection = sqlite3.connect('currency.db')
+        connection = sqlite3.connect('../currency.db')
         cursor = connection.cursor()
         cursor.execute(f'SELECT * FROM {metal}')
         lis = cursor.fetchall()

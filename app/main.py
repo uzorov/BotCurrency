@@ -1,7 +1,14 @@
 import telebot
 from telebot import types
 
-from API import getExchangeValue, saveImg
+import asyncio
+import logging
+from aiogram import Bot, Dispatcher, types
+
+from app.repository.currency_repo import getExchangeValue, saveImg, initDb
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 bot = telebot.TeleBot('6245867896:AAEpE3fdvmkbnBtz5cbg8PsZIDZv6GQPLr8')
 flag_reverse = False
@@ -70,7 +77,7 @@ def start(message):
 
 @bot.message_handler(func=lambda msg: msg.text == 'photo')
 def get_user_photo(message):
-    bot.send_photo(message.chat.id, open("foto.png", "rb"))
+    bot.send_photo(message.chat.id, open("./foto.png", "rb"))
 
 
 @bot.message_handler(content_types=['text'])
@@ -87,7 +94,7 @@ def get_text_messages(message):
             flag_value = dict_value[key]
             bot.send_message(message.from_user.id, result_reverse())
             saveImg(flag_value, "foto")
-            bot.send_photo(message.chat.id, open("foto.png", "rb"))
+            bot.send_photo(message.chat.id, open("./foto.png", "rb"))
         elif key == "en" or key == "ru":
             flag_language = key
             introduction(message, key)
@@ -100,8 +107,15 @@ def get_text_messages(message):
                          " Вы можете написать сообщение на почту levshin01bk.ru ")
 
 
-try:
-    bot.polling(none_stop=True)
-except Exception as e:
-    print(e)
-    pass
+async def main():
+    try:
+        logger.info("Bot is starting polling...")
+        await bot.polling(none_stop=True)
+    except Exception as e:
+        logger.error(f"An error occurred while polling: {e}")
+
+
+if __name__ == '__main__':
+    print("Bot is online!")
+    initDb()
+    asyncio.run(main())

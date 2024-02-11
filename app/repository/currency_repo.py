@@ -1,10 +1,13 @@
 import datetime
+import matplotlib
 
 import matplotlib.pyplot as plt
 import numpy
 
-from DBAdapter import DBAdapter
-from currency_parser import getCurrency
+from app.db_adapter import DBAdapter
+from app.service.currency_parser_service import getCurrency
+
+matplotlib.use('Agg')
 
 adapter = DBAdapter()
 
@@ -43,19 +46,19 @@ def saveImg(currency, name):
         data.append(numpy.mean(domashniy[i]))
     print(data)
     plt.close()
-    #plt.axis([0, min(data) - 1, len(data), max(data) + 1])
     ax = plt.gca()
-    ax.set_ylim([min(data) - 1,  max(data) + 1])
+    ax.set_ylim([min(data) - 1, max(data) + 1])
     plt.plot(list(map(lambda x: x.split("-")[0] + '.' + x.split("-")[1], domashniy.keys())), data)
     plt.grid(b=True)
     plt.draw()
     plt.savefig(name)
     plt.close()
 
-if __name__ == '__main__':
-    adapter = DBAdapter()
-    adapter.clearDb()
-    adapter.fillDb()
+
+def initDb():
+    currency_adapter = DBAdapter()
+    currency_adapter.clearDb()
+    currency_adapter.fillDb()
     saveImg("USD", "foto")
 
     print("USD =", getExchangeValue("USD"))
