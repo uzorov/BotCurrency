@@ -11,7 +11,7 @@ def introduction(user, key):
     dict = {"ru": ["Юань-Рубль", "Доллар-Рубль", "Металлы-Рубль"],
             "en": ["Yuan-Ruble", "Dollar-Ruble", "Metal-Ruble"]}
     markup = types.ReplyKeyboardMarkup(row_width=3)
-    btn_yuan = types.KeyboardButton(dict[key][0],)
+    btn_yuan = types.KeyboardButton(dict[key][0])
     btn_dollar = types.KeyboardButton(dict[key][1])
     btn_metal = types.KeyboardButton(dict[key][2])
     markup.add(btn_yuan,btn_dollar,btn_metal)
@@ -98,5 +98,6 @@ def get_text_messages(message):
 
 try:
     bot.polling(none_stop=True)
-except Exception:
+except Exception as e:
+    print(e)
     pass
