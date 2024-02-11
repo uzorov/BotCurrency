@@ -13,17 +13,17 @@ def getExchangeValue(currency):
     if currency in ["USD", "CNY"]:
         data = adapter.getCurrencyDataFromDb(currency)
     else:
-        data = float(adapter.getMetalDataFomDb(currency)) * float(adapter.getCurrencyDataFromDb("USD"))
+        data = adapter.getMetalDataFomDb(currency)
     if len(data) != 0 and data[-1][2] == datetime.datetime.now().strftime("%H:%M:%S") and \
-            data[-1][2] == datetime.date.today().strftime("%D.%M.%Y"):
+            data[-1][2] == datetime.date.today().strftime("%D-%M-%Y"):
         return data[-1][3]
     adapter.updateValue(currency, getCurrency(currency))
     if currency in ["USD", "CNY"]:
-        data = adapter.getCurrencyDataFromDb(currency)
+        data = adapter.getCurrencyDataFromDb(currency)[-1][3]
     else:
-        data = float(adapter.getMetalDataFomDb(currency)) * float(adapter.getCurrencyDataFromDb("USD"))
+        data = float(adapter.getMetalDataFomDb(currency)[-1][3]) * float(adapter.getCurrencyDataFromDb("USD")[-1][3])
 
-    return data[-1][3]
+    return data
 
 
 def saveImg(currency, name):
