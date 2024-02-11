@@ -1,4 +1,6 @@
 import telebot
+import os
+from dotenv import load_dotenv
 from telebot import types
 
 import asyncio
@@ -7,10 +9,12 @@ from aiogram import Bot, Dispatcher, types
 
 from app.repository.currency_repo import getExchangeValue, saveImg, initDb
 
+load_dotenv()
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-bot = telebot.TeleBot('6245867896:AAEpE3fdvmkbnBtz5cbg8PsZIDZv6GQPLr8')
+bot = telebot.TeleBot(os.getenv('TELEGRAM_API_TOKEN'))
 flag_reverse = False
 flag_value = "USD"
 flag_language = "ru"
