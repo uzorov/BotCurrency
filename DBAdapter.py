@@ -117,6 +117,8 @@ class DBAdapter:
         self.storeCurrency("USD", "07-02-2024", 90.68)
         self.storeCurrency("USD", "08-02-2024", 91.15)
         self.storeCurrency("USD", "09-02-2024", 91.26)
+        self.storeCurrency("USD", "10-02-2024", 91.29)
+
 
         self.storeCurrency("CNY", "01-02-2024", 12.46)
         self.storeCurrency("CNY", "02-02-2024", 12.56)
@@ -127,6 +129,30 @@ class DBAdapter:
         self.storeCurrency("CNY", "07-02-2024", 12.59)
         self.storeCurrency("CNY", "08-02-2024", 12.65)
         self.storeCurrency("CNY", "09-02-2024", 12.64)
+        self.storeCurrency("CNY", "10-02-2024", 12.65)
+
+
+        self.storeCurrency("CGN", "01-02-2024", 423)
+        self.storeCurrency("CGN", "02-02-2024", 417)
+        self.storeCurrency("CGN", "03-02-2024", 416)
+        self.storeCurrency("CGN", "04-02-2024", 414)
+        self.storeCurrency("CGN", "05-02-2024", 409)
+        self.storeCurrency("CGN", "06-02-2024", 406)
+        self.storeCurrency("CGN", "07-02-2024", 404)
+        self.storeCurrency("CGN", "08-02-2024", 404)
+        self.storeCurrency("CGN", "09-02-2024", 403)
+        self.storeCurrency("CGN", "10-02-2024", 403)
+
+        self.storeCurrency("STL", "01-02-2024", 570)
+        self.storeCurrency("STL", "02-02-2024", 571)
+        self.storeCurrency("STL", "03-02-2024", 573)
+        self.storeCurrency("STL", "04-02-2024", 574)
+        self.storeCurrency("STL", "05-02-2024", 575)
+        self.storeCurrency("STL", "06-02-2024", 578)
+        self.storeCurrency("STL", "07-02-2024", 577)
+        self.storeCurrency("STL", "08-02-2024", 571)
+        self.storeCurrency("STL", "09-02-2024", 564)
+        self.storeCurrency("STL", "10-02-2024", 561)
 
     def getMetalDataFomDb(self, metal):
         connection = sqlite3.connect('currency.db')

@@ -1,22 +1,24 @@
 import telebot
-from API import getExchangeValue, saveImg
 from telebot import types
+
+from API import getExchangeValue, saveImg
 
 bot = telebot.TeleBot('6245867896:AAEpE3fdvmkbnBtz5cbg8PsZIDZv6GQPLr8')
 flag_reverse = False
 flag_value = "USD"
 flag_language = "ru"
 
+
 def introduction(user, key):
-    dict = {"ru": ["Юань-Рубль", "Доллар-Рубль","Чугун-Рубль","Сталь-Рубль"],
-            "en": ["Yuan-Ruble", "Dollar-Ruble", "Chugun-Ruble","Steel-Ruble"]}
+    dict = {"ru": ["Юань-Рубль", "Доллар-Рубль", "Чугун-Рубль", "Сталь-Рубль"],
+            "en": ["Yuan-Ruble", "Dollar-Ruble", "Chugun-Ruble", "Steel-Ruble"]}
     markup = types.ReplyKeyboardMarkup(row_width=3)
     btn_yuan = types.KeyboardButton(dict[key][0])
     btn_dollar = types.KeyboardButton(dict[key][1])
     btn_metal1 = types.KeyboardButton(dict[key][2])
     btn_metal2 = types.KeyboardButton(dict[key][3])
 
-    markup.add(btn_yuan,btn_dollar,btn_metal1,btn_metal2)
+    markup.add(btn_yuan, btn_dollar, btn_metal1, btn_metal2)
     setstring = {"ru": """
                Добрый день, в сами бот для работы с самой свежей информацией по курсам валют.
 Выберите интересующий вас курс:
@@ -66,12 +68,9 @@ def start(message):
     bot.send_message(message.from_user.id, "Chose your language / Выберите свой язык ", reply_markup=markup)
 
 
-
-
 @bot.message_handler(func=lambda msg: msg.text == 'photo')
 def get_user_photo(message):
-    bot.send_photo(message.chat.id,open("foto.png","rb") )
-
+    bot.send_photo(message.chat.id, open("foto.png", "rb"))
 
 
 @bot.message_handler(content_types=['text'])
@@ -79,10 +78,10 @@ def get_text_messages(message):
     key = to_float(message.text)
     global flag_language
     if isinstance(key, str):
-        dict = {"ru": ["Юань-Рубль", "Доллар-Рубль", "Металлы-Рубль","Чугун-Рубль","Сталь-Рубль"],
-                "en": ["Yuan-Ruble", "Dollar-Ruble", "Chugun-Ruble","Steel-Ruble"]}
+        dict = {"ru": ["Юань-Рубль", "Доллар-Рубль", "Металлы-Рубль", "Чугун-Рубль", "Сталь-Рубль"],
+                "en": ["Yuan-Ruble", "Dollar-Ruble", "Chugun-Ruble", "Steel-Ruble"]}
         dict_value = {"Юань-Рубль": "CNY", "Yuan-Ruble": "CNY", "Доллар-Рубль": "USD", "Dollar-Ruble": "USD",
-                      "Чугун-Рубль": "CGN", "Chugun-Ruble": "CGN","Сталь-Рубль": "STL", "Steel-Ruble": "STL"}
+                      "Чугун-Рубль": "CGN", "Chugun-Ruble": "CGN", "Сталь-Рубль": "STL", "Steel-Ruble": "STL"}
         if key in dict[flag_language]:
             global flag_value
             flag_value = dict_value[key]
@@ -99,6 +98,7 @@ def get_text_messages(message):
         bot.send_message(message.from_user.id,
                          message.text + "Я сожалею, но такой операции на данный момент не существует" +
                          " Вы можете написать сообщение на почту levshin01bk.ru ")
+
 
 try:
     bot.polling(none_stop=True)

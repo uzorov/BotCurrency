@@ -13,7 +13,7 @@ def getExchangeValue(currency):
     if currency in ["USD", "CNY"]:
         data = adapter.getCurrencyDataFromDb(currency)
     else:
-        data = adapter.getMetalDataFomDb(currency)
+        data = float(adapter.getMetalDataFomDb(currency)) * float(adapter.getCurrencyDataFromDb("USD"))
     if len(data) != 0 and data[-1][2] == datetime.datetime.now().strftime("%H:%M:%S") and \
             data[-1][2] == datetime.date.today().strftime("%D.%M.%Y"):
         return data[-1][3]
@@ -21,7 +21,8 @@ def getExchangeValue(currency):
     if currency in ["USD", "CNY"]:
         data = adapter.getCurrencyDataFromDb(currency)
     else:
-        data = adapter.getMetalDataFomDb(currency)
+        data = float(adapter.getMetalDataFomDb(currency)) * float(adapter.getCurrencyDataFromDb("USD"))
+
     return data[-1][3]
 
 
