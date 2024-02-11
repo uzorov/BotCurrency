@@ -5,7 +5,7 @@ from telebot import types
 
 import asyncio
 import logging
-from aiogram import Bot, Dispatcher, types
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
 from app.repository.currency_repo import getExchangeValue, saveImg, initDb
 
@@ -23,11 +23,12 @@ flag_language = "ru"
 def introduction(user, key):
     dict = {"ru": ["Юань-Рубль", "Доллар-Рубль", "Чугун-Рубль", "Сталь-Рубль"],
             "en": ["Yuan-Ruble", "Dollar-Ruble", "Chugun-Ruble", "Steel-Ruble"]}
-    markup = types.ReplyKeyboardMarkup(row_width=3)
-    btn_yuan = types.KeyboardButton(dict[key][0])
-    btn_dollar = types.KeyboardButton(dict[key][1])
-    btn_metal1 = types.KeyboardButton(dict[key][2])
-    btn_metal2 = types.KeyboardButton(dict[key][3])
+    # markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+    markup = ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+    btn_yuan = KeyboardButton(dict[key][0])
+    btn_dollar = KeyboardButton(dict[key][1])
+    btn_metal1 = KeyboardButton(dict[key][2])
+    btn_metal2 = KeyboardButton(dict[key][3])
 
     markup.add(btn_yuan, btn_dollar, btn_metal1, btn_metal2)
     setstring = {"ru": """
