@@ -16,7 +16,6 @@ def getCurrency(currency1):
     #    currency2 = "Russian Ruble"
 
 
-
 def get_exchange_list_xrates(currency, amount=1):
     content = requests.get(f"https://www.x-rates.com/table/?from={currency}&amount={amount}").content
     soup = bs(content, "html.parser")
@@ -35,25 +34,24 @@ def get_exchange_list_xrates(currency, amount=1):
 
 def get_exchange_list_metal(metal):
     if metal == "CGN":
-        content = requests.get(f"https://www.metaltorg.ru/metal_catalog/metallurgicheskoye_syrye_i_polufabrikaty/chugun/chugun_peredelnyi/").content
+        content = requests.get(
+            f"https://www.metaltorg.ru/metal_catalog/metallurgicheskoye_syrye_i_polufabrikaty/chugun/chugun_peredelnyi/").content
         soup = bs(content, "html.parser")
         exchange_tables = soup.find_all("table")[17].find_all("tr")[-1].find_all("td")[-4].text.replace(",", ".")
         return exchange_tables
     if metal == "STL":
-        content = requests.get(f"https://www.metaltorg.ru/metal_catalog/listovoi_prokat/list_rulon_bez_pokrytiya/goryachekatanaya_rulonnaya_stal/").content
+        content = requests.get(
+            f"https://www.metaltorg.ru/metal_catalog/listovoi_prokat/list_rulon_bez_pokrytiya/goryachekatanaya_rulonnaya_stal/").content
         soup = bs(content, "html.parser")
         exchange_tables = soup.find_all("table")[17].find_all("tr")[2].find_all("td")[2].text.replace(",", ".")
         return exchange_tables
 
-#def updateTodayValue():
- #   if adapter.isExistForToday("CNY"):
-  #      adapter.updateValue("CNY", getCurrency("CNY"))
-   # if adapter.isExistForToday("USD"):
+# def updateTodayValue():
+#   if adapter.isExistForToday("CNY"):
+#      adapter.updateValue("CNY", getCurrency("CNY"))
+# if adapter.isExistForToday("USD"):
 #        adapter.updateValue("USD", getCurrency("USD"))
- #   if adapter.isExistForToday("CGN"):
-  #      adapter.updateValue("CGN", getCurrency("CGN"))
-   # if adapter.isExistForToday("STL"):
-    #    adapter.updateValue("STL", getCurrency("STL"))
-
-
-
+#   if adapter.isExistForToday("CGN"):
+#      adapter.updateValue("CGN", getCurrency("CGN"))
+# if adapter.isExistForToday("STL"):
+#    adapter.updateValue("STL", getCurrency("STL"))
